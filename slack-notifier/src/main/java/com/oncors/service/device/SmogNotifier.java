@@ -16,12 +16,12 @@ public class SmogNotifier implements DeviceNotifyLogic {
 
     @Override
     public void processState(DeviceEvent deviceEvent) {
-        Boolean smogStatus = Boolean.parseBoolean(deviceEvent.getValue());
-        if(smogStatus && !smogAlreadyNotified){
+        int smogStatus = Integer.parseInt(deviceEvent.getValue());
+        if(smogStatus == 1 && !smogAlreadyNotified){
             slackService.postMessage(new CloseWindowOnSmog());
             smogAlreadyNotified = true;
         }
-        if(!smogStatus){
+        if(smogStatus != 1){
             smogAlreadyNotified = false;
         }
     }

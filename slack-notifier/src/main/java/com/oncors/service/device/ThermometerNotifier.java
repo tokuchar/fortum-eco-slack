@@ -24,12 +24,12 @@ public class ThermometerNotifier implements DeviceNotifyLogic {
         //third value - AC on(1)/off(0) , forth value - heater on/off
         int insideTemperature = Integer.parseInt(eventValues.get(0));
         int outsideTemperature = Integer.parseInt(eventValues.get(1));
-        Boolean AC = Boolean.parseBoolean(eventValues.get(2));
-        Boolean heater = Boolean.parseBoolean(eventValues.get(3));
-        if(AC && outsideTemperature < insideTemperature){
+        int AC = Integer.parseInt(eventValues.get(2));
+        int heater = Integer.parseInt(eventValues.get(3));
+        if(AC == 1&& outsideTemperature < insideTemperature){
             slackService.postMessage(new OpenWindowColderMessage());
         }
-        if(heater && outsideTemperature > insideTemperature){
+        if(heater == 1&& outsideTemperature > insideTemperature){
             slackService.postMessage(new OpenWindowWarmerMessage());
         }
     }
