@@ -10,8 +10,8 @@ public class ThermometerDataGenerator implements DataGenerator{
 
     private final int MAX_TEMP_INSIDE = 25;
     private final int MIN_TEMP_INSIDE = 20;
-    private final int MAX_TEMP_OUTSIDE = 35;
-    private final int MIN_TEMP_OUTSIDE = 5;
+    private final int MAX_TEMP_OUTSIDE = 25;
+    private final int MIN_TEMP_OUTSIDE = 20;
 
     private String deviceName;
     private int iteration;
@@ -25,11 +25,11 @@ public class ThermometerDataGenerator implements DataGenerator{
     @Override
     public DeviceEvent generate() {
         double deltaInside = (MAX_TEMP_INSIDE - MIN_TEMP_INSIDE);
-        double deltaOutside = (MAX_TEMP_OUTSIDE - MIN_TEMP_INSIDE);
+        double deltaOutside = (MAX_TEMP_OUTSIDE - MIN_TEMP_OUTSIDE);
 
         double x = 2*Math.PI*((1.0/60.0)*iteration);
         double inside = (double)((MAX_TEMP_INSIDE + MIN_TEMP_INSIDE)/2.0)+ (deltaInside * Math.sin(x));
-        double outside = (double)((MAX_TEMP_OUTSIDE + MIN_TEMP_OUTSIDE)/2.0) + (deltaOutside * Math.sin(x));
+        double outside = (double)((MAX_TEMP_OUTSIDE + MIN_TEMP_OUTSIDE)/2.0) + (deltaOutside * Math.sin(x + Math.PI/2.0));
         int ac = 0;
         int heat = 0;
 
