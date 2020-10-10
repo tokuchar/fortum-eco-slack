@@ -1,6 +1,7 @@
 package com.oncors.service;
 
 import com.oncors.model.DeviceEvent;
+import com.oncors.service.device.CoffeeNotifier;
 import com.oncors.service.device.DishwasherNotifier;
 import com.oncors.service.device.KettleNotifier;
 import lombok.extern.slf4j.Slf4j;
@@ -17,6 +18,9 @@ public class DeviceListenerService {
     @Autowired
     DishwasherNotifier dishwasherNotifier;
 
+    @Autowired
+    CoffeeNotifier coffeeNotifier;
+
     @RabbitListener(queues = "kettle-queue")
     public void listenKettle(DeviceEvent kettleEvent) {
        log.info("kettle event: " + kettleEvent);
@@ -32,6 +36,6 @@ public class DeviceListenerService {
     @RabbitListener(queues = "coffee-queue")
     public void listenCoffee(DeviceEvent coffeeEvent) {
         log.info("coffee event: " + coffeeEvent);
-        dishwasherNotifier.processState(coffeeEvent);
+        coffeeNotifier.processState(coffeeEvent);
     }
 }
