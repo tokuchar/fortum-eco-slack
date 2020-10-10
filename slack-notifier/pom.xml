@@ -11,6 +11,4 @@
 
     <artifactId>slack-notifier</artifactId>
     <packaging>jar</packaging>
-
-
 </project>
