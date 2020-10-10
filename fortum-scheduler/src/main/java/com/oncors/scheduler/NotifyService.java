@@ -55,7 +55,6 @@ public class NotifyService {
         }
     }
 
-
     @Scheduled(fixedRate = 1000)
     public void notifyAboutCoffeeExpress() {
         DataGenerator generator = dataGenerators.get("Coffee");

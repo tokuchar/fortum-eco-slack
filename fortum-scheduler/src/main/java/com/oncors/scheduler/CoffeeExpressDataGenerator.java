@@ -1,5 +1,6 @@
 package com.oncors.scheduler;
 
+import com.oncors.model.CoffeeExpressStatus;
 import com.oncors.model.DeviceEvent;
 import com.oncors.model.DeviceType;
 
@@ -12,10 +13,6 @@ import java.util.concurrent.ThreadLocalRandom;
 public class CoffeeExpressDataGenerator implements DataGenerator {
     private final int END_CYCLE = 60;
     private final int STANDBY_TIME = 30;
-
-    private final String IN_USE = "in_use";
-    private final String STANDBY = "standby";
-    private final String IS_OFF = "off";
 
     private String deviceName;
     private int iteration;
@@ -41,17 +38,17 @@ public class CoffeeExpressDataGenerator implements DataGenerator {
                 .build();
 
         if(iteration <= waitTime){
-            deviceEvent.setValue(IS_OFF);
+            deviceEvent.setValue(CoffeeExpressStatus.OFF.toString());
         }
         if (iteration >= waitTime && iteration <= waitTime + coffeeTime){
-            deviceEvent.setValue(IN_USE);
+            deviceEvent.setValue(CoffeeExpressStatus.IN_USE.toString());
         }
 
         if(iteration >= waitTime + coffeeTime && iteration <= waitTime + coffeeTime + STANDBY_TIME){
-            deviceEvent.setValue(STANDBY);
+            deviceEvent.setValue(CoffeeExpressStatus.STANDBY.toString());
         }
         if(iteration >= waitTime + coffeeTime + STANDBY_TIME){
-            deviceEvent.setValue(IS_OFF);
+            deviceEvent.setValue(CoffeeExpressStatus.OFF.toString());
         }
 
         if (iteration > END_CYCLE) {
