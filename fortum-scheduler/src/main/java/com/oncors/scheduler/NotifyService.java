@@ -15,22 +15,38 @@ import java.util.Map;
 public class NotifyService {
     @Value("${queue.kettle}")
     private final String kettleQueue;
+
+    @Value("${queue.dishwasher}")
+    private final String dishwasherQueue;
+
     private final RabbitTemplate rabbitTemplate;
     private final Map<String, DataGenerator> dataGenerators;
 
-    public NotifyService(RabbitTemplate rabbitTemplate, @Value("${queue.kettle}") String kettleQueue, Map<String, DataGenerator> generatorMap) {
+    public NotifyService(RabbitTemplate rabbitTemplate,
+                         @Value("${queue.kettle}") String kettleQueue,
+                         @Value("${queue.kettle}") String dishwasherQueue,
+                         Map<String, DataGenerator> generatorMap) {
         this.kettleQueue = kettleQueue;
+        this.dishwasherQueue = dishwasherQueue;
         this.rabbitTemplate = rabbitTemplate;
         this.dataGenerators = generatorMap;
     }
 
     @Scheduled(fixedRate = 1000)
     public void notifyAboutKettle() {
-        for (DataGenerator generator:dataGenerators.values())
-        {
-            DeviceEvent event = generator.generate();
-            log.info("send to " + kettleQueue + " message " + event.toString());
-            rabbitTemplate.convertAndSend(kettleQueue, event);
+        DataGenerator generator = dataGenerators.get("Kettle");
+        DeviceEvent event = generator.generate();
+        log.info("send to " + kettleQueue + " message " + event.toString());
+        rabbitTemplate.convertAndSend(kettleQueue, event);
+    }
+
+    @Scheduled(fixedRate = 1000)
+    public void notifyAboutDishwasher() {
+        DataGenerator generator = dataGenerators.get("Dishwasher");
+        DeviceEvent event = generator.generate();
+        if(event != null){
+            log.info("send to " + dishwasherQueue + " message " + event.toString());
+            rabbitTemplate.convertAndSend(dishwasherQueue, event);
         }
     }
 }

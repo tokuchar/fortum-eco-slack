@@ -4,7 +4,6 @@ import com.oncors.model.DeviceEvent;
 import com.oncors.model.DeviceType;
 import lombok.NoArgsConstructor;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Locale;
 
@@ -28,7 +27,6 @@ public class KettleDataGenerator implements DataGenerator {
 
     @Override
     public DeviceEvent generate() {
-        iteration++;
         double kettleValue = 0;
         DeviceEvent deviceEvent = DeviceEvent.builder()
                 .deviceName(deviceName)
@@ -42,6 +40,8 @@ public class KettleDataGenerator implements DataGenerator {
 
         if (iteration > END_CYCLE) {
             iteration = 0;
+        } else {
+            iteration++;
         }
 
         deviceEvent.setValue(String.format(Locale.US, "%.2f" , kettleValue));
