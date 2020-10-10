@@ -5,6 +5,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.oncors.model.KettleMessage;
 import com.oncors.model.SlackMessage;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.*;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
@@ -13,11 +14,12 @@ import org.springframework.web.client.RestTemplate;
 @Slf4j
 public class SlackService {
 
-    private final String webHookUrl = "https://hooks.slack.com/services/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";
     private RestTemplate restTemplate;
     private ObjectMapper jsonObjectMapper;
+    private final String webHookUrl;
 
-    SlackService(){
+    SlackService(@Value("${webhook.url}") String webHookUrl){
+        this.webHookUrl = webHookUrl;
         restTemplate = new RestTemplate();
         jsonObjectMapper = new ObjectMapper();
     }
