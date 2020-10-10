@@ -2,6 +2,7 @@ package com.oncors.scheduler;
 
 import com.oncors.model.DeviceEvent;
 import com.oncors.model.DeviceType;
+import com.oncors.model.DishwasherStatus;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
@@ -13,9 +14,6 @@ public class DishwasherDataGenerator implements DataGenerator {
     private final int STOP = 100;
     private final int END_CYCLE = 120;
 
-
-    private final String DISHWASHER_FINISHED = "finished";
-    private final String DISHWASHER_WILL_START = "start";
 
     private String deviceName;
     private int iteration;
@@ -41,10 +39,10 @@ public class DishwasherDataGenerator implements DataGenerator {
 
         switch (iteration) {
             case START:
-                deviceEvent.setValue(DISHWASHER_WILL_START);
+                deviceEvent.setValue(DishwasherStatus.DISHWASHER_WILL_START.toString());
                 return deviceEvent;
             case STOP:
-                deviceEvent.setValue(DISHWASHER_FINISHED);
+                deviceEvent.setValue(DishwasherStatus.DISHWASHER_FINISHED.toString());
                 return deviceEvent;
             default:
                 return null;

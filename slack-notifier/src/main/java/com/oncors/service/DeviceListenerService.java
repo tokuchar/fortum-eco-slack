@@ -1,6 +1,7 @@
 package com.oncors.service;
 
 import com.oncors.model.DeviceEvent;
+import com.oncors.service.device.DishwasherNotifier;
 import com.oncors.service.device.KettleNotifier;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.amqp.rabbit.annotation.RabbitListener;
@@ -13,9 +14,18 @@ public class DeviceListenerService {
     @Autowired
     KettleNotifier kettleNotifier;
 
+    @Autowired
+    DishwasherNotifier dishwasherNotifier;
+
     @RabbitListener(queues = "kettle-queue")
-    public void listen(DeviceEvent kettleEvent) {
+    public void listenKettle(DeviceEvent kettleEvent) {
        log.info("kettle event: " + kettleEvent);
        kettleNotifier.processState(kettleEvent);
+    }
+
+    @RabbitListener(queues = "dishwasher-queue")
+    public void listenDishwasher(DeviceEvent dishwasherEvent) {
+        log.info("kettle event: " + dishwasherEvent);
+        dishwasherNotifier.processState(dishwasherEvent);
     }
 }
