@@ -6,6 +6,7 @@ import lombok.NoArgsConstructor;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.Locale;
 
 @NoArgsConstructor
 public class KettleDataGenerator implements DataGenerator {
@@ -43,7 +44,7 @@ public class KettleDataGenerator implements DataGenerator {
             iteration = 0;
         }
 
-        deviceEvent.setValue(String.format("%.2f" , kettleValue));
+        deviceEvent.setValue(String.format(Locale.US, "%.2f" , kettleValue));
         return deviceEvent;
     }
 }
