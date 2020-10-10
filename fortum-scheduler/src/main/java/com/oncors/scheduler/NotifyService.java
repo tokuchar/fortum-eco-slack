@@ -73,7 +73,7 @@ public class NotifyService {
         rabbitTemplate.convertAndSend(coffeeQueue, event);
     }
 
-    @Scheduled(fixedRate = 1000)
+    @Scheduled(fixedRate = (1000*60*3))
     public void notifyAboutThermometer() {
         DataGenerator generator = dataGenerators.get("Thermometer");
         DeviceEvent event = generator.generate();
