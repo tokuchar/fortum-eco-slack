@@ -1,9 +1,6 @@
 package com.oncors.config;
 
-import com.oncors.scheduler.CoffeeExpressDataGenerator;
-import com.oncors.scheduler.DishwasherDataGenerator;
-import com.oncors.scheduler.KettleDataGenerator;
-import com.oncors.scheduler.ThermometerDataGenerator;
+import com.oncors.scheduler.*;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -30,4 +27,8 @@ public class DeviceConfig {
         return new ThermometerDataGenerator("Uber Thermometer", 0);
     }
 
+    @Bean(name = "Smog")
+    public SmogDataGenerator smogFoo(){
+        return new SmogDataGenerator("Wielki Smog", 0);
+    }
 }
