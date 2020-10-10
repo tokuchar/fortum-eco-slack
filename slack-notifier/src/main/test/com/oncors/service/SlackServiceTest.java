@@ -1,6 +1,7 @@
 package com.oncors.service;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
+import com.oncors.model.KettleMessage;
 import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,6 +18,7 @@ class SlackServiceTest {
 
     @Test
     void kettlePost() throws JsonProcessingException {
-        slackService.postKettleReady();
+        KettleMessage kettleMessage = new KettleMessage();
+        slackService.postMessage(kettleMessage);
     }
 }

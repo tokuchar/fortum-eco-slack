@@ -3,6 +3,7 @@ package com.oncors.service;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.oncors.model.KettleMessage;
+import com.oncors.model.SlackMessage;
 import org.springframework.http.*;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
@@ -21,9 +22,9 @@ public class SlackService {
 
 
 
-    public void postKettleReady() throws JsonProcessingException {
+    public void postMessage(SlackMessage slackMessage) throws JsonProcessingException {
         KettleMessage kettleMessage = new KettleMessage();
-        String jsonString = jsonObjectMapper.writeValueAsString(kettleMessage);
+        String jsonString = jsonObjectMapper.writeValueAsString(slackMessage);
         ResponseEntity<Void> response = restTemplate.postForEntity(webHookUrl, jsonString, Void.class);
         if (response.getStatusCode() == HttpStatus.OK) {
             System.out.println("Kettle request Successful");
