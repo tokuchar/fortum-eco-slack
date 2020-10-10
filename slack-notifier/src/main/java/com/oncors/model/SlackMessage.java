@@ -1,5 +1,5 @@
 package com.oncors.model;
 
 public abstract class SlackMessage {
-    String text;
+    String text = "Default slack message";
 }

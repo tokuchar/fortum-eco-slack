@@ -27,9 +27,9 @@ public class SlackService {
         String jsonString = jsonObjectMapper.writeValueAsString(slackMessage);
         ResponseEntity<Void> response = restTemplate.postForEntity(webHookUrl, jsonString, Void.class);
         if (response.getStatusCode() == HttpStatus.OK) {
-            System.out.println("Kettle request Successful");
+            System.out.println("request Successful");
         } else {
-            System.out.println("Kettle request Failed");
+            System.out.println("request Failed");
         }
     }
 }
