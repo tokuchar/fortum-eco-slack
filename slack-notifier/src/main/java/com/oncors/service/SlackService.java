@@ -23,7 +23,6 @@ public class SlackService {
 
 
     public void postMessage(SlackMessage slackMessage) throws JsonProcessingException {
-        KettleMessage kettleMessage = new KettleMessage();
         String jsonString = jsonObjectMapper.writeValueAsString(slackMessage);
         ResponseEntity<Void> response = restTemplate.postForEntity(webHookUrl, jsonString, Void.class);
         if (response.getStatusCode() == HttpStatus.OK) {
