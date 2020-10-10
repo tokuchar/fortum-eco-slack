@@ -5,6 +5,7 @@ import com.oncors.model.DeviceType;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 @NoArgsConstructor
 public class KettleDataGenerator implements DataGenerator {
@@ -31,7 +32,7 @@ public class KettleDataGenerator implements DataGenerator {
         DeviceEvent deviceEvent = DeviceEvent.builder()
                 .deviceName(deviceName)
                 .deviceType(DeviceType.KETTLE)
-                .notificationTime(LocalDate.now())
+                .notificationTime(LocalDateTime.now())
                 .build();
 
         if(iteration >= START_KETTLE && iteration <= STOP_KETTLE){
