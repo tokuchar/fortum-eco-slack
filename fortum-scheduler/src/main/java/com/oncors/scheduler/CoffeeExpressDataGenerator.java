@@ -13,21 +13,19 @@ public class CoffeeExpressDataGenerator implements DataGenerator {
     private final int END_CYCLE = 60;
     private final int STANDBY_TIME = 30;
 
-    enum CoffeeExpressState {
-        IN_USE,
-        STANDBY,
-        OFF
-    }
+    private final String IN_USE = "in_use";
+    private final String STANDBY = "standby";
+    private final String IS_OFF = "off";
 
     private String deviceName;
     private int iteration;
-    private int coffeTime;
+    private int coffeeTime;
     private int waitTime;
 
     public CoffeeExpressDataGenerator(String deviceName, int startIteration) {
         this.deviceName = deviceName;
         this.iteration = startIteration;
-        this.coffeTime = getCoffeeTime();
+        this.coffeeTime = getCoffeeTime();
         this.waitTime = getWaitTime();
 
     }
@@ -43,22 +41,22 @@ public class CoffeeExpressDataGenerator implements DataGenerator {
                 .build();
 
         if(iteration <= waitTime){
-            deviceEvent.setValue(CoffeeExpressState.OFF.toString());
+            deviceEvent.setValue(IS_OFF);
         }
-        if (iteration >= waitTime && iteration <= waitTime + coffeTime){
-            deviceEvent.setValue(CoffeeExpressState.IN_USE.toString());
+        if (iteration >= waitTime && iteration <= waitTime + coffeeTime){
+            deviceEvent.setValue(IN_USE);
         }
 
-        if(iteration >= waitTime + coffeTime && iteration <= waitTime + coffeTime + STANDBY_TIME){
-            deviceEvent.setValue(CoffeeExpressState.STANDBY.toString());
+        if(iteration >= waitTime + coffeeTime && iteration <= waitTime + coffeeTime + STANDBY_TIME){
+            deviceEvent.setValue(STANDBY);
         }
-        if(iteration >= waitTime + coffeTime + STANDBY_TIME){
-            deviceEvent.setValue(CoffeeExpressState.OFF.toString());
+        if(iteration >= waitTime + coffeeTime + STANDBY_TIME){
+            deviceEvent.setValue(IS_OFF);
         }
 
         if (iteration > END_CYCLE) {
             iteration = 0;
-            coffeTime = getCoffeeTime();
+            coffeeTime = getCoffeeTime();
             waitTime = getWaitTime();
         }
 
