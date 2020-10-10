@@ -4,14 +4,25 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.io.Serializable;
 import java.time.LocalDate;
 
 @Getter
 @Setter
 @Builder
-public class DeviceEvent {
+public class DeviceEvent implements Serializable {
     LocalDate notificationTime;
     DeviceType deviceType;
     String deviceName;
     DeviceDetails deviceDetails;
+
+    @Override
+    public String toString() {
+        return "DeviceEvent{" +
+                "notificationTime=" + notificationTime +
+                ", deviceType=" + deviceType +
+                ", deviceName='" + deviceName + '\'' +
+                ", deviceDetails=" + deviceDetails +
+                '}';
+    }
 }
