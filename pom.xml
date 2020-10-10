@@ -12,6 +12,7 @@
     <modules>
         <module>fortum-scheduler</module>
         <module>slack-notifier</module>
+        <module>device-util</module>
     </modules>
 
     <parent>
