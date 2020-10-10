@@ -10,8 +10,8 @@ public class ThermometerDataGenerator implements DataGenerator{
 
     private final int MAX_TEMP_INSIDE = 25;
     private final int MIN_TEMP_INSIDE = 20;
-    private final int MAX_TEMP_OUTSIDE = 25;
-    private final int MIN_TEMP_OUTSIDE = 20;
+    private final int MAX_TEMP_OUTSIDE = 35;
+    private final int MIN_TEMP_OUTSIDE = 10;
 
     private String deviceName;
     private int iteration;
