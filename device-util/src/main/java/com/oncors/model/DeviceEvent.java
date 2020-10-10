@@ -14,7 +14,7 @@ public class DeviceEvent implements Serializable {
     LocalDate notificationTime;
     DeviceType deviceType;
     String deviceName;
-    double value;
+    String value;
 
     @Override
     public String toString() {

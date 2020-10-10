@@ -3,7 +3,6 @@ package com.oncors.scheduler;
 import com.oncors.model.DeviceEvent;
 import com.oncors.model.DeviceType;
 import lombok.NoArgsConstructor;
-import org.springframework.stereotype.Repository;
 
 import java.time.LocalDate;
 
@@ -43,7 +42,7 @@ public class KettleDataGenerator implements DataGenerator {
             iteration = 0;
         }
 
-        deviceEvent.setValue(kettleValue);
+        deviceEvent.setValue(String.format("%.2f" , kettleValue));
         return deviceEvent;
     }
 }
