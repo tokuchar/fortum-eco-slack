@@ -22,6 +22,9 @@ public class NotifyService {
     @Value("${queue.coffee}")
     private final String coffeeQueue;
 
+    @Value("${queue.thermometer}")
+    private final String thermometerQueue;
+
     private final RabbitTemplate rabbitTemplate;
     private final Map<String, DataGenerator> dataGenerators;
 
@@ -29,10 +32,12 @@ public class NotifyService {
                          @Value("${queue.kettle}") String kettleQueue,
                          @Value("${queue.dishwasher}") String dishwasherQueue,
                          @Value("${queue.coffee}") String coffeeQueue,
+                         @Value("${queue.thermometer}") String thermometerQueue,
                          Map<String, DataGenerator> generatorMap) {
         this.kettleQueue = kettleQueue;
         this.dishwasherQueue = dishwasherQueue;
         this.coffeeQueue = coffeeQueue;
+        this.thermometerQueue = thermometerQueue;
         this.rabbitTemplate = rabbitTemplate;
         this.dataGenerators = generatorMap;
     }
@@ -61,6 +66,14 @@ public class NotifyService {
         DeviceEvent event = generator.generate();
         log.info("send to " + coffeeQueue + " message " + event.toString());
         rabbitTemplate.convertAndSend(coffeeQueue, event);
+    }
+
+    @Scheduled(fixedRate = 1000)
+    public void notifyAboutThermometer() {
+        DataGenerator generator = dataGenerators.get("Thermometer");
+        DeviceEvent event = generator.generate();
+        log.info("send to " + thermometerQueue + " message " + event.toString());
+        rabbitTemplate.convertAndSend(thermometerQueue, event);
     }
 
 }
