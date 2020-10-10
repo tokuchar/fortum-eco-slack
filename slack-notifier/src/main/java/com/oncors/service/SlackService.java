@@ -4,11 +4,13 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.oncors.model.KettleMessage;
 import com.oncors.model.SlackMessage;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.*;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
 @Service
+@Slf4j
 public class SlackService {
 
     private final String webHookUrl = "https://hooks.slack.com/services/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";
@@ -26,9 +28,9 @@ public class SlackService {
         String jsonString = jsonObjectMapper.writeValueAsString(slackMessage);
         ResponseEntity<Void> response = restTemplate.postForEntity(webHookUrl, jsonString, Void.class);
         if (response.getStatusCode() == HttpStatus.OK) {
-            System.out.println("request Successful");
+            log.info("request Successful");
         } else {
-            System.out.println("request Failed");
+            log.info("request Failed");
         }
     }
 }
