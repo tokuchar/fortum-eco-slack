@@ -3,3 +3,4 @@ server:
 queue:
   kettle: kettle-queue
   dishwasher: dishwasher-queue
+  coffee: coffee-queue
