@@ -1,10 +1,7 @@
 package com.oncors.service;
 
 import com.oncors.model.DeviceEvent;
-import com.oncors.service.device.CoffeeNotifier;
-import com.oncors.service.device.DishwasherNotifier;
-import com.oncors.service.device.KettleNotifier;
-import com.oncors.service.device.ThermometerNotifier;
+import com.oncors.service.device.*;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.amqp.rabbit.annotation.RabbitListener;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,6 +21,9 @@ public class DeviceListenerService {
 
     @Autowired
     ThermometerNotifier thermometerNotifier;
+
+    @Autowired
+    SmogNotifier smogNotifier;
 
     @RabbitListener(queues = "kettle-queue")
     public void listenKettle(DeviceEvent kettleEvent) {
@@ -45,7 +45,13 @@ public class DeviceListenerService {
 
     @RabbitListener(queues = "thermometer-queue")
     public void listenThermometer(DeviceEvent thermometerEvent) {
-        log.info("thermometer event event: " + thermometerEvent);
+        log.info("thermometer event: " + thermometerEvent);
         thermometerNotifier.processState(thermometerEvent);
+    }
+
+    @RabbitListener(queues = "smog-queue")
+    public void listenSmog(DeviceEvent smogEvent) {
+        log.info("smog event: " + smogEvent);
+        smogNotifier.processState(smogEvent);
     }
 }
