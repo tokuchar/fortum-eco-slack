@@ -8,13 +8,15 @@ import java.util.Locale;
 
 public class ThermometerDataGenerator implements DataGenerator{
 
-    private final int MAX_TEMP_INSIDE = 25;
-    private final int MIN_TEMP_INSIDE = 20;
     private final int MAX_TEMP_OUTSIDE = 35;
     private final int MIN_TEMP_OUTSIDE = 10;
 
+    
+
+    private double outsideTemp = MIN_TEMP_OUTSIDE;
     private String deviceName;
     private int iteration;
+    private boolean temp_up = true;
 
     public ThermometerDataGenerator(String deviceName, int startIteration) {
         this.deviceName = deviceName;
@@ -24,12 +26,27 @@ public class ThermometerDataGenerator implements DataGenerator{
 
     @Override
     public DeviceEvent generate() {
-        double deltaInside = (MAX_TEMP_INSIDE - MIN_TEMP_INSIDE);
+
         double deltaOutside = (MAX_TEMP_OUTSIDE - MIN_TEMP_OUTSIDE);
 
         double x = 2*Math.PI*((1.0/60.0)*iteration);
-        double inside = (double)((MAX_TEMP_INSIDE + MIN_TEMP_INSIDE)/2.0)+ (deltaInside * Math.sin(x));
-        double outside = (double)((MAX_TEMP_OUTSIDE + MIN_TEMP_OUTSIDE)/2.0) + (deltaOutside * Math.sin(x + Math.PI/2.0));
+        double inside = 24;
+
+        if(outsideTemp > MAX_TEMP_OUTSIDE)
+        {
+            temp_up = false;
+        }
+        if (outsideTemp < MIN_TEMP_OUTSIDE){
+            temp_up = true;
+        }
+
+        if (temp_up){
+            outsideTemp += 0.1;
+        }else
+        {
+            outsideTemp -= 0.1;
+        }
+
         int ac = 0;
         int heat = 0;
 
@@ -48,7 +65,7 @@ public class ThermometerDataGenerator implements DataGenerator{
                 .deviceName(deviceName)
                 .deviceType(DeviceType.DISHWASHER)
                 .notificationTime(LocalDateTime.now())
-                .value(String.format(Locale.US, "%d;%d;%d;%d", (int)inside, (int)outside, ac, heat))
+                .value(String.format(Locale.US, "%d;%d;%d;%d", (int)inside, (int)outsideTemp, ac, heat))
                 .build();
     }
 }
