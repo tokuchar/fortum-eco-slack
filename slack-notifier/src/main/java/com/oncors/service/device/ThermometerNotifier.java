@@ -16,6 +16,7 @@ public class ThermometerNotifier implements DeviceNotifyLogic {
     @Autowired
     SlackService slackService;
 
+    boolean windowOpen;
     @Override
     public void processState(DeviceEvent deviceEvent) {
         String eventValue = deviceEvent.getValue();
@@ -26,11 +27,16 @@ public class ThermometerNotifier implements DeviceNotifyLogic {
         int outsideTemperature = Integer.parseInt(eventValues.get(1));
         int AC = Integer.parseInt(eventValues.get(2));
         int heater = Integer.parseInt(eventValues.get(3));
-        if(AC == 1&& outsideTemperature < insideTemperature){
+        if(!windowOpen && AC == 1&& outsideTemperature < insideTemperature){
             slackService.postMessage(new OpenWindowColderMessage());
+            windowOpen = true;
         }
-        if(heater == 1&& outsideTemperature > insideTemperature){
+        else if(! windowOpen && heater == 1&& outsideTemperature > insideTemperature){
             slackService.postMessage(new OpenWindowWarmerMessage());
+            windowOpen = true;
+        }
+        else{
+            windowOpen = false;
         }
     }
 }
