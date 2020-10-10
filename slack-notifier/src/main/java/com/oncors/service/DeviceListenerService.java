@@ -25,7 +25,13 @@ public class DeviceListenerService {
 
     @RabbitListener(queues = "dishwasher-queue")
     public void listenDishwasher(DeviceEvent dishwasherEvent) {
-        log.info("kettle event: " + dishwasherEvent);
+        log.info("dishwasher event: " + dishwasherEvent);
         dishwasherNotifier.processState(dishwasherEvent);
+    }
+
+    @RabbitListener(queues = "coffee-queue")
+    public void listenCoffee(DeviceEvent coffeeEvent) {
+        log.info("coffee event: " + coffeeEvent);
+        dishwasherNotifier.processState(coffeeEvent);
     }
 }

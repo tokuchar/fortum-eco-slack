@@ -1,6 +1,5 @@
 package com.oncors.service.device;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.oncors.model.*;
 import com.oncors.service.DeviceNotifyLogic;
 import com.oncors.service.SlackService;
@@ -16,19 +15,9 @@ public class DishwasherNotifier implements DeviceNotifyLogic {
     @Override
     public void processState(DeviceEvent deviceEvent) {
         String dishwasherStatus = deviceEvent.getValue();
-        if(DishwasherStatus.DISHWASHER_FINISHED.toString().equals(dishwasherStatus)){
-            try {
+        if(DishwasherStatus.DISHWASHER_FINISHED.toString().equals(dishwasherStatus))
                 slackService.postMessage(new DishwasherEndMessage());
-            } catch (JsonProcessingException e) {
-                e.printStackTrace();
-            }
-        }
-        if(DishwasherStatus.DISHWASHER_WILL_START.toString().equals(dishwasherStatus)){
-            try {
+        if(DishwasherStatus.DISHWASHER_WILL_START.toString().equals(dishwasherStatus))
                 slackService.postMessage(new DishwasherStartMessage());
-            } catch (JsonProcessingException e) {
-                e.printStackTrace();
-            }
         }
-    }
 }

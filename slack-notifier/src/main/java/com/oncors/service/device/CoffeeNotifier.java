@@ -1,24 +1,24 @@
 package com.oncors.service.device;
 
+import com.oncors.model.CoffeeExpressStatus;
+import com.oncors.model.CoffeeMessage;
 import com.oncors.model.DeviceEvent;
-import com.oncors.model.KettleMessage;
 import com.oncors.service.DeviceNotifyLogic;
 import com.oncors.service.SlackService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
-public class KettleNotifier implements DeviceNotifyLogic {
-    private static boolean kettleIsWorking = false;
+public class CoffeeNotifier implements DeviceNotifyLogic {
 
     @Autowired
     SlackService slackService;
+
     @Override
     public void processState(DeviceEvent deviceEvent) {
-        double power = Double.parseDouble(deviceEvent.getValue());
-        if(kettleIsWorking && power == 0){
-                slackService.postMessage(new KettleMessage());
+        String status = deviceEvent.getValue();
+        if(CoffeeExpressStatus.STANDBY.toString().equals(status)){
+            slackService.postMessage(new CoffeeMessage());
         }
-        kettleIsWorking = power > 0;
     }
 }

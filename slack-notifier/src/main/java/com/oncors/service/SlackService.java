@@ -26,8 +26,13 @@ public class SlackService {
 
 
 
-    public void postMessage(SlackMessage slackMessage) throws JsonProcessingException {
-        String jsonString = jsonObjectMapper.writeValueAsString(slackMessage);
+    public void postMessage(SlackMessage slackMessage) {
+        String jsonString = null;
+        try {
+            jsonString = jsonObjectMapper.writeValueAsString(slackMessage);
+        } catch (JsonProcessingException e) {
+            e.printStackTrace();
+        }
         ResponseEntity<Void> response = restTemplate.postForEntity(webHookUrl, jsonString, Void.class);
         if (response.getStatusCode() == HttpStatus.OK) {
             log.info("request Successful");
