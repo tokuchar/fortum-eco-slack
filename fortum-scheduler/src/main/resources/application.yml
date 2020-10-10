@@ -5,3 +5,4 @@ queue:
   dishwasher: dishwasher-queue
   coffee: coffee-queue
   thermometer: thermometer-queue
+  smog: smog-queue

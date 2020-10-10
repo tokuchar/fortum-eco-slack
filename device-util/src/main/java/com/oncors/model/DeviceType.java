@@ -4,5 +4,6 @@ public enum DeviceType {
     KETTLE,
     COFFEE_MACHINE,
     DISHWASHER,
-    THERMOMETER
+    THERMOMETER,
+    SMOG
 }
