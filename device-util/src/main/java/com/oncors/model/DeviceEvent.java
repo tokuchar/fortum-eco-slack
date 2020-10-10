@@ -14,15 +14,15 @@ public class DeviceEvent implements Serializable {
     LocalDate notificationTime;
     DeviceType deviceType;
     String deviceName;
-    DeviceDetails deviceDetails;
+    double value;
 
     @Override
     public String toString() {
         return "DeviceEvent{" +
                 "notificationTime=" + notificationTime +
                 ", deviceType=" + deviceType +
-                ", deviceName='" + deviceName + '\'' +
-                ", deviceDetails=" + deviceDetails +
+                ", deviceName='" + deviceName +
+                ", value=" + value +
                 '}';
     }
 }
