@@ -17,7 +17,7 @@ public class CoffeeNotifier implements DeviceNotifyLogic {
     @Override
     public void processState(DeviceEvent deviceEvent) {
         String status = deviceEvent.getValue();
-        if(CoffeeExpressStatus.STANDBY.toString().equals(status)){
+        if(CoffeeExpressStatus.STANDBY.name().equals(status)){
             slackService.postMessage(new CoffeeMessage());
         }
     }

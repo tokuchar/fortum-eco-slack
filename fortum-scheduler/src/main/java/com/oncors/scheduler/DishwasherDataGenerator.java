@@ -39,10 +39,10 @@ public class DishwasherDataGenerator implements DataGenerator {
 
         switch (iteration) {
             case START:
-                deviceEvent.setValue(DishwasherStatus.DISHWASHER_WILL_START.toString());
+                deviceEvent.setValue(DishwasherStatus.DISHWASHER_WILL_START.name());
                 return deviceEvent;
             case STOP:
-                deviceEvent.setValue(DishwasherStatus.DISHWASHER_FINISHED.toString());
+                deviceEvent.setValue(DishwasherStatus.DISHWASHER_FINISHED.name());
                 return deviceEvent;
             default:
                 return null;

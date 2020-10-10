@@ -15,9 +15,9 @@ public class DishwasherNotifier implements DeviceNotifyLogic {
     @Override
     public void processState(DeviceEvent deviceEvent) {
         String dishwasherStatus = deviceEvent.getValue();
-        if(DishwasherStatus.DISHWASHER_FINISHED.toString().equals(dishwasherStatus))
+        if(DishwasherStatus.DISHWASHER_FINISHED.name().equals(dishwasherStatus))
                 slackService.postMessage(new DishwasherEndMessage());
-        if(DishwasherStatus.DISHWASHER_WILL_START.toString().equals(dishwasherStatus))
+        if(DishwasherStatus.DISHWASHER_WILL_START.name().equals(dishwasherStatus))
                 slackService.postMessage(new DishwasherStartMessage());
         }
 }
